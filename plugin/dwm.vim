@@ -110,6 +110,16 @@ function! DWM_AutoEnter()
     return
   endif
 
+  " Skip git commit and merge buffers
+  if expand('%:t') == 'COMMIT_EDITMSG' || expand('%:t') == 'MERGE_MSG'
+    return
+  endif
+
+  " Skip committia buffers
+  if expand('%:t') == '__committia_diff_' || expand('%:t') == '__committia_status_'
+    return
+  endif
+
   " Move new window to stack top
   wincmd K
 
