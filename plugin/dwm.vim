@@ -236,9 +236,16 @@ if g:dwm_map_keys
   endif
 endif
 
+function! DWMHandleWinChange()
+    if get(t:, '_win_count', 0) != winnr('$')
+        if &l:buflisted || &l:filetype == 'help' | call DWM_AutoEnter() | endif
+    endif
+    let t:_win_count = winnr('$')
+endfunction
+
 if has('autocmd')
   augroup dwm
     au!
-    au BufWinEnter * if &l:buflisted || &l:filetype == 'help' | call DWM_AutoEnter() | endif
+    au BufWinEnter,WinEnter,BufDelete * call DWMHandleWinChange()
   augroup end
 endif
