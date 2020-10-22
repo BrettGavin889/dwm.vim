@@ -72,6 +72,9 @@ function! DWM_New()
   " Create a vertical split
   vert topleft new
   call DWM_ResizeMasterPaneWidth()
+  " switch to the previous window, and then change to alternate buffer
+  wincmd p
+  silent! execute "b#"
 endfunction
 
 " Move the current window to the master pane (the previous master window is
